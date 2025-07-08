@@ -1,0 +1,78 @@
+operations:
+  view:
+    - type: web
+      impl: index.html
+actions: actions
+web: web-src
+runtimeManifest:
+  packages:
+    admin-ui-sdk:
+      license: Apache-2.0
+      actions:
+        registration:
+          function: actions/registration/index.js
+          web: 'yes'
+          runtime: 'nodejs:20'
+          inputs:
+            LOG_LEVEL: debug
+          annotations:
+            require-adobe-auth: false
+            final: true
+    ranosysnotificationmanager:
+      license: Apache-2.0
+      actions:
+        getNotifications:
+          function: actions/getNotifications/index.js
+          runtime: 'nodejs:20'
+          web: 'yes'
+          inputs:
+            LOG_LEVEL: debug
+          annotations:
+            require-adobe-auth: false
+            final: true
+        createNotification:
+          function: actions/createNotification/index.js
+          runtime: 'nodejs:20'
+          web: 'yes'
+          inputs:
+            LOG_LEVEL: debug
+          annotations:
+            require-adobe-auth: false
+            final: true
+        updateNotification:
+          function: actions/updateNotification/index.js
+          runtime: 'nodejs:20'
+          web: 'yes'
+          inputs:
+            LOG_LEVEL: debug
+          annotations:
+            require-adobe-auth: false
+            final: true
+        deleteNotification:
+          function: actions/deleteNotification/index.js
+          runtime: 'nodejs:20'
+          web: 'yes'
+          inputs:
+            LOG_LEVEL: debug
+          annotations:
+            require-adobe-auth: false
+            final: true
+        deleteAllNotifications:
+          function: actions/deleteAllNotifications/index.js
+          runtime: 'nodejs:20'
+          web: 'yes'
+          inputs:
+            LOG_LEVEL: debug
+          annotations:
+            require-adobe-auth: false
+            final: true
+        fetchPublicNotifications:
+          function: actions/fetchPublicNotifications/index.js
+          runtime: 'nodejs:20'
+          web: 'yes'
+          inputs:
+            NOTIFICATION_API_URL: ${NOTIFICATION_API_URL}
+            LOG_LEVEL: debug
+          annotations:
+            require-adobe-auth: false
+            final: true

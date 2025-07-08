@@ -1,0 +1,9 @@
+{
+  "admin-ui-sdk/registration": "https://172.17.0.1:9080/api/v1/web/admin-ui-sdk/registration",
+  "ranosysnotificationmanager/getNotifications": "https://172.17.0.1:9080/api/v1/web/ranosysnotificationmanager/getNotifications",
+  "ranosysnotificationmanager/createNotification": "https://172.17.0.1:9080/api/v1/web/ranosysnotificationmanager/createNotification",
+  "ranosysnotificationmanager/updateNotification": "https://172.17.0.1:9080/api/v1/web/ranosysnotificationmanager/updateNotification",
+  "ranosysnotificationmanager/deleteNotification": "https://172.17.0.1:9080/api/v1/web/ranosysnotificationmanager/deleteNotification",
+  "ranosysnotificationmanager/deleteAllNotifications": "https://172.17.0.1:9080/api/v1/web/ranosysnotificationmanager/deleteAllNotifications",
+  "ranosysnotificationmanager/fetchPublicNotifications": "https://172.17.0.1:9080/api/v1/web/ranosysnotificationmanager/fetchPublicNotifications"
+}
