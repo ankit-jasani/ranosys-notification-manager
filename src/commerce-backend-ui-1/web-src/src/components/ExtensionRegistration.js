@@ -27,7 +27,6 @@ export default function ExtensionRegistration(props) {
         props.ims.token = guestConnection?.sharedContext?.get('imsToken');
         props.ims.org = guestConnection?.sharedContext?.get('imsOrgId');
       }
-      setIsLoading(false);
     };
     fetchCredentials();
   }, []);

@@ -66,12 +66,29 @@ runtimeManifest:
           annotations:
             require-adobe-auth: false
             final: true
-        fetchPublicNotifications:
-          function: actions/fetchPublicNotifications/index.js
+        allNotifications:
+          function: actions/notifications/all/index.js
           runtime: 'nodejs:20'
           web: 'yes'
           inputs:
-            NOTIFICATION_API_URL: ${NOTIFICATION_API_URL}
+            LOG_LEVEL: debug
+          annotations:
+            require-adobe-auth: false
+            final: true
+        activeNotification:
+          function: actions/notifications/active/index.js
+          runtime: 'nodejs:20'
+          web: 'yes'
+          inputs:
+            LOG_LEVEL: debug
+          annotations:
+            require-adobe-auth: false
+            final: true
+        liveNotifications:
+          function: actions/notifications/live/index.js
+          runtime: 'nodejs:20'
+          web: 'yes'
+          inputs:
             LOG_LEVEL: debug
           annotations:
             require-adobe-auth: false
