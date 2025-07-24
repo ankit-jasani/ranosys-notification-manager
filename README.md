@@ -77,262 +77,271 @@ The Notification Manager is an extension of the Adobe Commerce Admin UI SDK that
 		    ]
 		}
 
-2) Retrive all notifications with position filter
+`2) Retrive all notifications with position filter`
 
-https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/allNotifications?position=header
+	URL:
+		https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/allNotifications?position=header
 
-Headers
-Authorization: Bearer <TOKEN>
-x-gw-ims-org-id: <CUSTOM>@AdobeOrg
+	Headers:
+		Authorization: Bearer <TOKEN>
+		x-gw-ims-org-id: <CUSTOM>@AdobeOrg
 
-Response
-{
-    "data": [
-        {
-            "content": "This notification is for header.",
-            "end": "2025-07-24T08:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T07:32:00.000Z"
-        }
-    ]
-}
+	Response:
+		{
+		    "data": [
+		        {
+		            "content": "This notification is for header.",
+		            "end": "2025-07-24T08:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T07:32:00.000Z"
+		        }
+		    ]
+		}
 
-3) Retrive all active notifications based on current UTC datetime
-(Find all active notifications where the current UTC datetime falls between their start and end UTC datetimes.)
+`3) Retrive all active notifications based on current UTC datetime
+(Find all active notifications where the current UTC datetime falls between their start and end UTC datetimes.)`
 
-https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/activeNotifications
+	URL:
+		https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/activeNotifications
 
-Headers
-Authorization: Bearer <TOKEN>
-x-gw-ims-org-id: <CUSTOM>@AdobeOrg
+	Headers:
+		Authorization: Bearer <TOKEN>
+		x-gw-ims-org-id: <CUSTOM>@AdobeOrg
 
-Response
-{
-    "data": [
-        {
-            "content": "This notification is for header.",
-            "end": "2025-07-24T08:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T07:32:00.000Z",
-            "adjustedStart": "2025-07-24T07:32:00.000Z",
-            "adjustedEnd": "2025-07-24T08:28:00.000Z"
-        }
-    ]
-}
+	Response:
+		{
+		    "data": [
+		        {
+		            "content": "This notification is for header.",
+		            "end": "2025-07-24T08:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T07:32:00.000Z",
+		            "adjustedStart": "2025-07-24T07:32:00.000Z",
+		            "adjustedEnd": "2025-07-24T08:28:00.000Z"
+		        }
+		    ]
+		}
 
-4) Retrive all active notifications based on current UTC datetime with position filter 
-(Find all active notifications where the current UTC datetime falls between their start and end UTC datetimes with position filter.)
+`4) Retrive all active notifications based on current UTC datetime with position filter 
+(Find all active notifications where the current UTC datetime falls between their start and end UTC datetimes with position filter.)`
 
-https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/activeNotifications?position=header
+	URL:
+		https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/activeNotifications?position=header
 
-Headers
-Authorization: Bearer <TOKEN>
-x-gw-ims-org-id: <CUSTOM>@AdobeOrg
+	Headers:
+		Authorization: Bearer <TOKEN>
+		x-gw-ims-org-id: <CUSTOM>@AdobeOrg
 
-Response
-{
-    "data": [
-        {
-            "content": "This notification is for header.",
-            "end": "2025-07-24T08:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T07:32:00.000Z",
-            "adjustedStart": "2025-07-24T07:32:00.000Z",
-            "adjustedEnd": "2025-07-24T08:28:00.000Z"
-        }
-    ]
-}
+	Response:
+		{
+		    "data": [
+		        {
+		            "content": "This notification is for header.",
+		            "end": "2025-07-24T08:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T07:32:00.000Z",
+		            "adjustedStart": "2025-07-24T07:32:00.000Z",
+		            "adjustedEnd": "2025-07-24T08:28:00.000Z"
+		        }
+		    ]
+		}
 
-5) Retrieve all active notifications by converting the current UTC datetime to the provided timezone (tz) and applying a position filter
-(Check if the current UTC datetime, when converted to the provided timezone (tz), falls between the start and end UTC datetimes of the active notifications with position filter.)
+`5) Retrieve all active notifications by converting the current UTC datetime to the provided timezone (tz) and applying a position filter
+(Check if the current UTC datetime, when converted to the provided timezone (tz), falls between the start and end UTC datetimes of the active notifications with position filter.)`
 
-https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/activeNotifications?tz=Asia/Kolkata&position=footer
+	URL:
+		https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/activeNotifications?tz=Asia/Kolkata&position=footer
 
-Headers
-Authorization: Bearer <TOKEN>
-x-gw-ims-org-id: <CUSTOM>@AdobeOrg
+	Headers:
+		Authorization: Bearer <TOKEN>
+		x-gw-ims-org-id: <CUSTOM>@AdobeOrg
 
-Response
-{
-    "data": [
-        {
-            "content": "This notification is for footer.",
-            "end": "2025-07-24T13:58:00.000Z",
-            "position": "footer",
-            "start": "2025-07-24T13:02:00.000Z",
-            "adjustedStart": "2025-07-24T13:02:00.000Z",
-            "adjustedEnd": "2025-07-24T13:58:00.000Z"
-        }
-    ]
-}
+	Response:
+		{
+		    "data": [
+		        {
+		            "content": "This notification is for footer.",
+		            "end": "2025-07-24T13:58:00.000Z",
+		            "position": "footer",
+		            "start": "2025-07-24T13:02:00.000Z",
+		            "adjustedStart": "2025-07-24T13:02:00.000Z",
+		            "adjustedEnd": "2025-07-24T13:58:00.000Z"
+		        }
+		    ]
+		}
 
-6) Retrieve all active notifications by converting the current UTC datetime to the provided timezone (tz), also convert saved notification timezon from UTC to provided timezone (tz)
-(Verify whether the current time in the given timezone (tz) falls within the start and end times of each active notification, both adjusted to that timezone.)
+`6) Retrieve all active notifications by converting the current UTC datetime to the provided timezone (tz), also convert saved notification timezon from UTC to provided timezone (tz)
+(Verify whether the current time in the given timezone (tz) falls within the start and end times of each active notification, both adjusted to that timezone.)`
 
-https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/activeNotifications?tz=Asia/Singapore&tzaware=true
+	URL:
+		https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/activeNotifications?tz=Asia/Singapore&tzaware=true
 
-Headers
-Authorization: Bearer <TOKEN>
-x-gw-ims-org-id: <CUSTOM>@AdobeOrg
+	Headers:
+		Authorization: Bearer <TOKEN>
+		x-gw-ims-org-id: <CUSTOM>@AdobeOrg
 
-Response
-{
-    "data": [
-        {
-            "content": "This notification is for header.",
-            "end": "2025-07-24T08:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T07:32:00.000Z",
-            "adjustedStart": "2025-07-24T15:32:00.000Z",
-            "adjustedEnd": "2025-07-24T16:28:00.000Z"
-        }
-    ]
-}
+	Response:
+		{
+		    "data": [
+		        {
+		            "content": "This notification is for header.",
+		            "end": "2025-07-24T08:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T07:32:00.000Z",
+		            "adjustedStart": "2025-07-24T15:32:00.000Z",
+		            "adjustedEnd": "2025-07-24T16:28:00.000Z"
+		        }
+		    ]
+		}
 
-7) Retrive all live notifications (active notifications + future notifications) based on current UTC datetime
-(Find all live notifications (active notifications + future notifications) where the current UTC datetime falls between their start and end UTC datetimes.)
+`7) Retrive all live notifications (active notifications + future notifications) based on current UTC datetime
+(Find all live notifications (active notifications + future notifications) where the current UTC datetime falls between their start and end UTC datetimes.)`
 
-https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/liveNotifications
+	URL:
+		https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/liveNotifications
 
-Headers
-Authorization: Bearer <TOKEN>
-x-gw-ims-org-id: <CUSTOM>@AdobeOrg
+	Headers:
+		Authorization: Bearer <TOKEN>
+		x-gw-ims-org-id: <CUSTOM>@AdobeOrg
 
-Response
-{
-    "data": [
-        {
-            "content": "This notification 1 is for header.",
-            "end": "2025-07-24T08:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T07:32:00.000Z",
-            "adjustedStart": "2025-07-24T07:32:00.000Z",
-            "adjustedEnd": "2025-07-24T08:28:00.000Z"
-        },
-        {
-            "content": "This notification 2 is for header.",
-            "end": "2025-07-24T09:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T08:32:00.000Z",
-            "adjustedStart": "2025-07-24T08:32:00.000Z",
-            "adjustedEnd": "2025-07-24T09:28:00.000Z"
-        },
-        {
-            "content": "This notification 3 is for header.",
-            "end": "2025-07-24T10:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T09:32:00.000Z",
-            "adjustedStart": "2025-07-24T09:32:00.000Z",
-            "adjustedEnd": "2025-07-24T10:28:00.000Z"
-        },
-        {
-            "content": "This notification 1 is for footer.",
-            "end": "2025-07-24T13:58:00.000Z",
-            "position": "footer",
-            "start": "2025-07-24T13:02:00.000Z",
-            "adjustedStart": "2025-07-24T13:02:00.000Z",
-            "adjustedEnd": "2025-07-24T13:58:00.000Z"
-        }
-    ]
-}
+	Response:
+		{
+		    "data": [
+		        {
+		            "content": "This notification 1 is for header.",
+		            "end": "2025-07-24T08:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T07:32:00.000Z",
+		            "adjustedStart": "2025-07-24T07:32:00.000Z",
+		            "adjustedEnd": "2025-07-24T08:28:00.000Z"
+		        },
+		        {
+		            "content": "This notification 2 is for header.",
+		            "end": "2025-07-24T09:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T08:32:00.000Z",
+		            "adjustedStart": "2025-07-24T08:32:00.000Z",
+		            "adjustedEnd": "2025-07-24T09:28:00.000Z"
+		        },
+		        {
+		            "content": "This notification 3 is for header.",
+		            "end": "2025-07-24T10:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T09:32:00.000Z",
+		            "adjustedStart": "2025-07-24T09:32:00.000Z",
+		            "adjustedEnd": "2025-07-24T10:28:00.000Z"
+		        },
+		        {
+		            "content": "This notification 1 is for footer.",
+		            "end": "2025-07-24T13:58:00.000Z",
+		            "position": "footer",
+		            "start": "2025-07-24T13:02:00.000Z",
+		            "adjustedStart": "2025-07-24T13:02:00.000Z",
+		            "adjustedEnd": "2025-07-24T13:58:00.000Z"
+		        }
+		    ]
+		}
 
-8) Retrive all live notifications (active notifications + future notifications) based on current UTC datetime with position filter 
-(Find all live notifications (active notifications + future notifications) where the current UTC datetime falls between their start and end UTC datetimes with position filter.)
+`8) Retrive all live notifications (active notifications + future notifications) based on current UTC datetime with position filter 
+(Find all live notifications (active notifications + future notifications) where the current UTC datetime falls between their start and end UTC datetimes with position filter.)`
 
-https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/liveNotifications?position=header
+	URL:
+		https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/liveNotifications?position=header
 
-Headers
-Authorization: Bearer <TOKEN>
-x-gw-ims-org-id: <CUSTOM>@AdobeOrg
+	Headers:
+		Authorization: Bearer <TOKEN>
+		x-gw-ims-org-id: <CUSTOM>@AdobeOrg
 
-Response
-{
-    "data": [
-        {
-            "content": "This notification 1 is for header.",
-            "end": "2025-07-24T08:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T07:32:00.000Z",
-            "adjustedStart": "2025-07-24T07:32:00.000Z",
-            "adjustedEnd": "2025-07-24T08:28:00.000Z"
-        },
-        {
-            "content": "This notification 2 is for header.",
-            "end": "2025-07-24T09:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T08:32:00.000Z",
-            "adjustedStart": "2025-07-24T08:32:00.000Z",
-            "adjustedEnd": "2025-07-24T09:28:00.000Z"
-        },
-        {
-            "content": "This notification 3 is for header.",
-            "end": "2025-07-24T10:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T09:32:00.000Z",
-            "adjustedStart": "2025-07-24T09:32:00.000Z",
-            "adjustedEnd": "2025-07-24T10:28:00.000Z"
-        }
-    ]
-}
+	Response:
+		{
+		    "data": [
+		        {
+		            "content": "This notification 1 is for header.",
+		            "end": "2025-07-24T08:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T07:32:00.000Z",
+		            "adjustedStart": "2025-07-24T07:32:00.000Z",
+		            "adjustedEnd": "2025-07-24T08:28:00.000Z"
+		        },
+		        {
+		            "content": "This notification 2 is for header.",
+		            "end": "2025-07-24T09:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T08:32:00.000Z",
+		            "adjustedStart": "2025-07-24T08:32:00.000Z",
+		            "adjustedEnd": "2025-07-24T09:28:00.000Z"
+		        },
+		        {
+		            "content": "This notification 3 is for header.",
+		            "end": "2025-07-24T10:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T09:32:00.000Z",
+		            "adjustedStart": "2025-07-24T09:32:00.000Z",
+		            "adjustedEnd": "2025-07-24T10:28:00.000Z"
+		        }
+		    ]
+		}
 
-9) Retrieve all live notifications (active notifications + future notifications) by converting the current UTC datetime to the provided timezone (tz) and applying a position filter
-(Check if the current UTC datetime, when converted to the provided timezone (tz), falls between the start and end UTC datetimes of the live notifications (active notifications + future notifications) with position filter.)
+`9) Retrieve all live notifications (active notifications + future notifications) by converting the current UTC datetime to the provided timezone (tz) and applying a position filter
+(Check if the current UTC datetime, when converted to the provided timezone (tz), falls between the start and end UTC datetimes of the live notifications (active notifications + future notifications) with position filter.)`
 
-https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/liveNotifications?tz=Asia/Kolkata&position=footer
+	URL:
+		https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/liveNotifications?tz=Asia/Kolkata&position=footer
 
-Headers
-Authorization: Bearer <TOKEN>
-x-gw-ims-org-id: <CUSTOM>@AdobeOrg
+	Headers:
+		Authorization: Bearer <TOKEN>
+		x-gw-ims-org-id: <CUSTOM>@AdobeOrg
 
-Response
-{
-    "data": [
-        {
-            "content": "This notification 1 is for footer.",
-            "end": "2025-07-24T13:58:00.000Z",
-            "position": "footer",
-            "start": "2025-07-24T13:02:00.000Z",
-            "adjustedStart": "2025-07-24T13:02:00.000Z",
-            "adjustedEnd": "2025-07-24T13:58:00.000Z"
-        }
-    ]
-}
+	Response:
+		{
+		    "data": [
+		        {
+		            "content": "This notification 1 is for footer.",
+		            "end": "2025-07-24T13:58:00.000Z",
+		            "position": "footer",
+		            "start": "2025-07-24T13:02:00.000Z",
+		            "adjustedStart": "2025-07-24T13:02:00.000Z",
+		            "adjustedEnd": "2025-07-24T13:58:00.000Z"
+		        }
+		    ]
+		}
 
-10) Retrieve all live notifications (active notifications + future notifications) by converting the current UTC datetime to the provided timezone (tz), also convert saved notifications timezone from UTC to provided timezone (tz)
-(Verify whether the current time in the given timezone (tz) falls within the start and end times of each active notification, both adjusted to that timezone.)
+`10) Retrieve all live notifications (active notifications + future notifications) by converting the current UTC datetime to the provided timezone (tz), also convert saved notifications timezone from UTC to provided timezone (tz)
+(Verify whether the current time in the given timezone (tz) falls within the start and end times of each active notification, both adjusted to that timezone.)`
 
-https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/activeNotifications?tz=Asia/Singapore&tzaware=true
+	URL:
+		https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/activeNotifications?tz=Asia/Singapore&tzaware=true
 
-Headers
-Authorization: Bearer <TOKEN>
-x-gw-ims-org-id: <CUSTOM>@AdobeOrg
+	Headers:
+		Authorization: Bearer <TOKEN>
+		x-gw-ims-org-id: <CUSTOM>@AdobeOrg
 
-Response
-{
-    "data": [
-        {
-            "content": "This notification 2 is for header.",
-            "end": "2025-07-24T09:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T08:32:00.000Z",
-            "adjustedStart": "2025-07-24T16:32:00.000Z",
-            "adjustedEnd": "2025-07-24T17:28:00.000Z"
-        },
-        {
-            "content": "This notification 3 is for header.",
-            "end": "2025-07-24T10:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T09:32:00.000Z",
-            "adjustedStart": "2025-07-24T17:32:00.000Z",
-            "adjustedEnd": "2025-07-24T18:28:00.000Z"
-        },
-        {
-            "content": "This notification 1 is for footer.",
-            "end": "2025-07-24T13:58:00.000Z",
-            "position": "footer",
-            "start": "2025-07-24T13:02:00.000Z",
-            "adjustedStart": "2025-07-24T21:02:00.000Z",
-            "adjustedEnd": "2025-07-24T21:58:00.000Z"
-        }
-    ]
-}
+	Response:
+		{
+		    "data": [
+		        {
+		            "content": "This notification 2 is for header.",
+		            "end": "2025-07-24T09:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T08:32:00.000Z",
+		            "adjustedStart": "2025-07-24T16:32:00.000Z",
+		            "adjustedEnd": "2025-07-24T17:28:00.000Z"
+		        },
+		        {
+		            "content": "This notification 3 is for header.",
+		            "end": "2025-07-24T10:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T09:32:00.000Z",
+		            "adjustedStart": "2025-07-24T17:32:00.000Z",
+		            "adjustedEnd": "2025-07-24T18:28:00.000Z"
+		        },
+		        {
+		            "content": "This notification 1 is for footer.",
+		            "end": "2025-07-24T13:58:00.000Z",
+		            "position": "footer",
+		            "start": "2025-07-24T13:02:00.000Z",
+		            "adjustedStart": "2025-07-24T21:02:00.000Z",
+		            "adjustedEnd": "2025-07-24T21:58:00.000Z"
+		        }
+		    ]
+		}
