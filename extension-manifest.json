@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "name": "Notification Manager",
   "displayName": "Notification Manager",
-  "description": "Manage header and footer notifications in Adobe Commerce Admin and provide to frontend",
+  "description": "Manage notifications in Adobe Commerce Admin and provide to frontend",
   "platform": "web"
 }
