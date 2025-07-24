@@ -44,37 +44,37 @@ The Notification Manager is an extension of the Adobe Commerce Admin UI SDK that
 
 ## Postman Testing
 
-1) Retrive all notifications
+`1) Retrive all notifications`
 
-https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/allNotifications
+	https://`<CUSTOM>`.adobeio-static.net/api/v1/web/ranosysnotificationmanager/allNotifications
 
-Headers
-Authorization: Bearer <TOKEN>
-x-gw-ims-org-id: <CUSTOM>@AdobeOrg
+	`Headers`
+		`Authorization: Bearer <TOKEN>`
+		`x-gw-ims-org-id: <CUSTOM>@AdobeOrg`
 
-Response
-{
-    "data": [
-        {
-            "content": "This notification is for header.",
-            "end": "2025-07-24T08:28:00.000Z",
-            "position": "header",
-            "start": "2025-07-24T07:32:00.000Z"
-        },
-        {
-            "content": "This notification is for footer.",
-            "end": "2025-07-24T09:28:00.000Z",
-            "position": "footer",
-            "start": "2025-07-24T08:32:00.000Z"
-        },
-        {
-            "content": "This notification is for left content area.",
-            "end": "2025-07-24T10:28:00.000Z",
-            "position": "left-content",
-            "start": "2025-07-24T09:32:00.000Z"
-        }
-    ]
-}
+	`Response`
+		`{
+		    "data": [
+		        {
+		            "content": "This notification is for header.",
+		            "end": "2025-07-24T08:28:00.000Z",
+		            "position": "header",
+		            "start": "2025-07-24T07:32:00.000Z"
+		        },
+		        {
+		            "content": "This notification is for footer.",
+		            "end": "2025-07-24T09:28:00.000Z",
+		            "position": "footer",
+		            "start": "2025-07-24T08:32:00.000Z"
+		        },
+		        {
+		            "content": "This notification is for left content area.",
+		            "end": "2025-07-24T10:28:00.000Z",
+		            "position": "left-content",
+		            "start": "2025-07-24T09:32:00.000Z"
+		        }
+		    ]
+		}`
 
 2) Retrive all notifications with position filter
 
