@@ -16,6 +16,7 @@ import './NotificationsManager.css';
 export default function NotificationsManager(props) {
   // UI states
   const [notifications, setNotifications] = useState([]);
+  const [showCustomInput, setShowCustomInput] = useState(false);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
 
@@ -68,7 +69,7 @@ export default function NotificationsManager(props) {
     const { id, start, end, position, content } = form;
 
     // Validate required fields
-    if (!content || !start || !end) {
+    if (!content || !start || !end || !position) {
       return showToast('error', 'All fields are required.');
     }
 
@@ -143,12 +144,21 @@ export default function NotificationsManager(props) {
 
   // Load form with notification data for editing
   const editNotification = (item) => {
+    const isCustom = item.position !== 'header' && item.position !== 'footer';
+    setShowCustomInput(isCustom);
     setForm({
       ...item,
+      customLabel: isCustom ? item.position.replace(/-/g, ' ') : '',
+      position: isCustom ? 'custom' : item.position,
       start: utcToDatetimeLocal(item.start),
       end: utcToDatetimeLocal(item.end)
     });
   };
+
+  useEffect(() => {
+    const isCustom = form.position !== 'header' && form.position !== 'footer';
+    setShowCustomInput(isCustom);
+  }, [form.position]);
 
   return (
     <View className="nm-container" padding={{ base: 'size-200', M: 'size-400' }}>
@@ -192,14 +202,38 @@ export default function NotificationsManager(props) {
         />
         <Picker
           label="Position"
-          selectedKey={form.position}
-          onSelectionChange={(k) => setForm(f => ({ ...f, position: k }))}
+          selectedKey={['header', 'footer'].includes(form.position) ? form.position : 'custom'}
+          onSelectionChange={(k) => {
+            const isCustom = k === 'custom';
+            setShowCustomInput(isCustom);
+            setForm(f => ({
+              ...f,
+              position: isCustom
+                ? f.customLabel.trim().toLowerCase().replace(/\s+/g, '-')
+                : k
+            }));
+          }}
           width="size-2000"
           isDisabled={loading}
         >
           <Item key="header">Header</Item>
           <Item key="footer">Footer</Item>
+          <Item key="custom">Custom</Item>
         </Picker>
+        {showCustomInput && (
+          <TextField
+            label="Custom Position Label"
+            value={form.customLabel}
+            onChange={(v) => {
+              setForm(f => ({
+                ...f,
+                customLabel: v,
+                position: v.trim().toLowerCase().replace(/\s+/g, '-')
+              }));
+            }}
+            isDisabled={loading}
+          />
+        )}
         <Button
           variant="cta"
           onPress={onSubmit}
