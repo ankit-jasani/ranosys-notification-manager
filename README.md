@@ -44,17 +44,17 @@ The Notification Manager is an extension of the Adobe Commerce Admin UI SDK that
 
 ## Postman Testing
 
-`1) Retrive all notifications`
+1) Retrive all notifications
 
 	**URL**
-		https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/allNotifications
+		`https://<CUSTOM>.adobeio-static.net/api/v1/web/ranosysnotificationmanager/allNotifications`
 
 	**Headers**
-		Authorization: Bearer <TOKEN>
-		x-gw-ims-org-id: <CUSTOM>@AdobeOrg
+		`Authorization: Bearer <TOKEN>
+		x-gw-ims-org-id: <CUSTOM>@AdobeOrg`
 
 	**Response**
-		{
+		`{
 		    "data": [
 		        {
 		            "content": "This notification is for header.",
@@ -75,7 +75,7 @@ The Notification Manager is an extension of the Adobe Commerce Admin UI SDK that
 		            "start": "2025-07-24T09:32:00.000Z"
 		        }
 		    ]
-		}
+		}`
 
 2) Retrive all notifications with position filter
 
