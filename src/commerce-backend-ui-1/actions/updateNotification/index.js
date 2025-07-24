@@ -6,7 +6,7 @@ const stateLib = require('@adobe/aio-lib-state');
 const { Core } = require('@adobe/aio-sdk');
 const { errorResponse, stringParameters, checkMissingRequestInputs } = require('../utils');
 
-exports.main = async (params) => {
+exports.main = async (params = {}) => {
   
   const logger = Core.Logger('main', { level: params.LOG_LEVEL || 'info' });
 
@@ -18,16 +18,17 @@ exports.main = async (params) => {
     // log parameters, only if params.LOG_LEVEL === 'debug'
     logger.debug(stringParameters(params));
 
+    const { data } = params;
+    const { id, updates } = data;
+
     // check for missing request input parameters and headers
-    const requiredParams = [/* add required params */];
+    const requiredParams = ['data.id','data.updates.start','data.updates.end','data.updates.content','data.updates.position'];
     const requiredHeaders = ['Authorization'];
     const errorMessage = checkMissingRequestInputs(params, requiredParams, requiredHeaders);
     if (errorMessage) {
       // return and log client errors
       return errorResponse(400, errorMessage, logger);
     }
-
-    const { id, updates } = params;
 
     // Validate required inputs: 'id' and 'updates' object must be present
     if (!id || typeof updates !== 'object') {
@@ -50,27 +51,57 @@ exports.main = async (params) => {
         };
       }
       if (endTime < startTime) {
-        logger.error('"end" time must be the same or after "start" time.');
+        logger.error('"end" time must be the same or after "start" time');
         return {
           statusCode: 400,
           body: JSON.stringify({
-            error: '"end" time must be the same or after "start" time.'
+            error: '"end" time must be the same or after "start" time'
           })
         };
       }
     }
 
-    // Initialize Adobe State Library for persistent storage
+    // Initialize Adobe App Builder state SDK
     const state = await stateLib.init();
 
-    // Retrieve existing notification list from storage
+    // Retrieve notifications from state storage
     const stored = await state.get('notifications');
-    let list = stored?.value ? JSON.parse(stored.value) : [];
+    if (!stored?.value) {
+      logger.error('No data found');
+      return {
+        statusCode: 400,
+        body: 'No data found'
+      };
+    }
+
+    let notifications = [];
+    try {
+      notifications = JSON.parse(stored.value);
+    } catch (e) {
+      logger.error('Failed to parse notifications:', e);
+    }
+
+    // Check for overlapping time windows for the same position (excluding self by ID)
+    const isOverlapping = notifications && notifications.some(n => (
+      n.id !== id &&
+      n.position === updates.position &&
+      new Date(updates.start) < new Date(n.end) &&
+      new Date(n.start) < new Date(updates.end)
+    ));
+
+    if (isOverlapping) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: 'Time window overlaps an existing notification for same position or id not exist.'
+        })
+      };
+    }
 
     let updated = null;
 
     // Update the matching notification by id
-    list = list.map(n => {
+    notifications = notifications.map(n => {
       if (n.id === id) {
         updated = { ...n, ...updates }; // Merge old and new fields
         return updated;
@@ -78,8 +109,16 @@ exports.main = async (params) => {
       return n;
     });
 
-    // Persist the updated list back to state storage
-    await state.put('notifications', JSON.stringify(list));
+    if (!updated) {
+      logger.error(`Notification with id "${id}" not found`);
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: `Notification with id "${id}" not found` })
+      };
+    }
+
+    // Persist the updated notifications back to state storage
+    await state.put('notifications', JSON.stringify(notifications), { ttl: stateLib.MAX_TTL });
 
     // log the response status code
     logger.info(`Successful request`)
@@ -87,8 +126,11 @@ exports.main = async (params) => {
     // Return the updated notification in the response
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ notification: updated })
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store'
+      },
+      body: JSON.stringify({ success: true })
     };
 
   } catch (error) {
@@ -97,5 +139,4 @@ exports.main = async (params) => {
     // return with 500
     return errorResponse(500, 'server error', logger);
   }
-
 };

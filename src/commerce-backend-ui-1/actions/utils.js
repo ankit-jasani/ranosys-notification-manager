@@ -167,23 +167,23 @@ function getConvertedDateTime(str, tz) {
 }
 
 /**
- * Helper to determine if a notification is active and matches location.
+ * Helper to determine if a notification is active and matches position.
  * @param {object} n - Notification data
  * @param {string} now - Current time
  * @param {boolean} tzaware - Convert available notifications timezone with provided timezone
  * @param {string} tz - Timezone (e.g., 'Asia/Kolkata', 'America/New_York')
- * @param {string} location - Filter notification based on type (e.g., 'Header')
- * @param {boolean} isActive - Show only active notifications - either currently active or those without an end time in the past. 
+ * @param {string} position - Filter notification based on type (e.g., 'Header')
+ * @param {boolean} isActiveNotificationsOnly - Show only active notifications - either currently active or those without an end time in the past. 
  * @returns adjusted notification if valid, otherwise null.
  */
-function getUpdatedNotifications(n, now, tzaware, tz, location, isActive) {
-  const adjustedStart = tzaware && tz ? getConvertedDateTime(n.start, tz) : new Date(n.start);
-  const adjustedEnd = tzaware && tz ? getConvertedDateTime(n.end, tz) : new Date(n.end);
+function getUpdatedNotifications(n, now, tzaware, tz, position, isActiveNotificationsOnly) {
+  const adjustedStart = tzaware === 'true' && tz ? getConvertedDateTime(n.start, tz) : new Date(n.start);
+  const adjustedEnd = tzaware === 'true' && tz ? getConvertedDateTime(n.end, tz) : new Date(n.end);
 
-  const isActive = isActive ? now >= adjustedStart && now <= adjustedEnd : now <= adjustedEnd;
-  const matchesLocation = !location || n.location === location;
+  const isActive = isActiveNotificationsOnly ? now >= adjustedStart && now <= adjustedEnd : now <= adjustedEnd;
+  const matchesPosition = !position || n.position === position;
 
-  if (isActive && matchesLocation) {
+  if (isActive && matchesPosition) {
     return [{
       ...n,
       adjustedStart,

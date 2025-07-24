@@ -27,7 +27,7 @@ exports.main = async (params = {}) => {
       return errorResponse(400, errorMessage, logger);
     }
 
-    const { location } = params;
+    const { position } = params;
 
     // Initialize Adobe App Builder state SDK
     const state = await stateLib.init();
@@ -38,7 +38,7 @@ exports.main = async (params = {}) => {
       return {
         statusCode: 200,
         headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-        body: JSON.stringify({ notifications: [] })
+        body: JSON.stringify({ data: [] })
       };
     }
 
@@ -49,9 +49,9 @@ exports.main = async (params = {}) => {
       logger.error('Failed to parse notifications:', e);
     }
 
-    // Filter notifications (by location if provided) and omit `id`
+    // Filter notifications (by position if provided) and omit `id`
     const result = notifications
-      .filter(n => !location || n.location === location)
+      .filter(n => !position || n.position === position)
       .map(({ id, ...rest }) => rest); // Exclude 'id' field if not needed in response
 
     // log the response status code
@@ -64,7 +64,7 @@ exports.main = async (params = {}) => {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-store'
       },
-      body: JSON.stringify({ notifications: result })
+      body: JSON.stringify({ data: result })
     };
 
   } catch (error) {

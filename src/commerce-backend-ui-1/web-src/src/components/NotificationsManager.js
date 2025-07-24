@@ -24,7 +24,7 @@ export default function NotificationsManager(props) {
     id: null,
     start: '',
     end: '',
-    location: 'header',
+    position: 'header',
     content: ''
   });
 
@@ -39,7 +39,7 @@ export default function NotificationsManager(props) {
     setLoading(true);
     try {
       const res = await callAction(props, 'ranosysnotificationmanager/getNotifications');
-      setNotifications(res.notifications || []);
+      setNotifications(res.data || []);
     } catch (e) {
       showToast('error', e.message);
     } finally {
@@ -52,7 +52,7 @@ export default function NotificationsManager(props) {
     fetchNotifications();
   }, []);
 
-   const utcToDatetimeLocal = (utcStr) => {
+  const utcToDatetimeLocal = (utcStr) => {
     const date = new Date(utcStr);
     const offsetMs = date.getTimezoneOffset() * 60000;
     const local = new Date(date.getTime() - offsetMs);
@@ -65,7 +65,7 @@ export default function NotificationsManager(props) {
 
   // Handle notification form submit (create/update)
   const onSubmit = async () => {
-    const { id, start, end, location, content } = form;
+    const { id, start, end, position, content } = form;
 
     // Validate required fields
     if (!content || !start || !end) {
@@ -89,8 +89,8 @@ export default function NotificationsManager(props) {
         : 'ranosysnotificationmanager/createNotification';
 
       const params = id
-        ? { id, updates: { start: startUtc, end: endUtc, location, content } }
-        : { notification: { id: uuid(), start: startUtc, end: endUtc, location, content } };
+        ? { data: { id, updates: { start: startUtc, end: endUtc, position, content } } }
+        : { data: { id: uuid(), start: startUtc, end: endUtc, position, content } };
 
       const res = await callAction(props, actionName, '', params);
 
@@ -99,7 +99,7 @@ export default function NotificationsManager(props) {
         showToast('error', res.error);
       } else {
         showToast('success', 'Saved');
-        setForm({ id: null, start: '', end: '', location: 'header', content: '' });
+        setForm({ id: null, start: '', end: '', position: 'header', content: '' });
         await fetchNotifications();
       }
     } catch (e) {
@@ -112,10 +112,10 @@ export default function NotificationsManager(props) {
   // Delete a single notification
   const deleteNotification = async (id) => {
     if (!window.confirm('Delete this notification?')) return;
-
+    const params = id ? { data: { id } } : null;
     setLoading(true);
     try {
-      await callAction(props, 'ranosysnotificationmanager/deleteNotification', '', { id });
+      await callAction(props, 'ranosysnotificationmanager/deleteNotification', '', params);
       showToast('success', 'Deleted');
       await fetchNotifications();
     } catch (e) {
@@ -192,8 +192,8 @@ export default function NotificationsManager(props) {
         />
         <Picker
           label="Position"
-          selectedKey={form.location}
-          onSelectionChange={(k) => setForm(f => ({ ...f, location: k }))}
+          selectedKey={form.position}
+          onSelectionChange={(k) => setForm(f => ({ ...f, position: k }))}
           width="size-2000"
           isDisabled={loading}
         >
@@ -225,7 +225,7 @@ export default function NotificationsManager(props) {
             <Column width="40%">Content</Column>
             <Column width="15%">Start</Column>
             <Column width="15%">End</Column>
-            <Column width="10%">Location</Column>
+            <Column width="10%">Position</Column>
             <Column width="20%">Action</Column>
           </TableHeader>
           <TableBody items={notifications}>
@@ -234,7 +234,7 @@ export default function NotificationsManager(props) {
                 <Cell>{item.content}</Cell>
                 <Cell>{item.start}</Cell>
                 <Cell>{item.end}</Cell>
-                <Cell>{item.location}</Cell>
+                <Cell>{item.position}</Cell>
                 <Cell>
                   <Flex gap="size-100" wrap>
                     <Button

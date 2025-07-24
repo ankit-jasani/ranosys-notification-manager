@@ -27,7 +27,7 @@ exports.main = async (params = {}) => {
       return errorResponse(400, errorMessage, logger);
     }
 
-    const { location, tz, tzaware } = params;
+    const { position, tz, tzaware } = params;
 
     // Defensive validation
     if (tzaware && tz && typeof tz !== 'string') {
@@ -43,7 +43,7 @@ exports.main = async (params = {}) => {
       return {
         statusCode: 200,
         headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
-        body: JSON.stringify({ notifications: [] })
+        body: JSON.stringify({ data: [] })
       };
     }
 
@@ -58,7 +58,7 @@ exports.main = async (params = {}) => {
     const result = [];
 
     for (const n of notifications) {
-      const updatedItems = getUpdatedNotifications(n, now, tzaware, tz, location, true);
+      const updatedItems = getUpdatedNotifications(n, now, tzaware, tz, position, true);
       for (const item of updatedItems) {
         const { id, ...rest } = item;
         result.push(rest);
@@ -74,7 +74,7 @@ exports.main = async (params = {}) => {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-store'
       },
-      body: JSON.stringify({ notifications: result })
+      body: JSON.stringify({ data: result })
     };
 
   } catch (error) {

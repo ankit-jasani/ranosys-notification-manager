@@ -16,7 +16,7 @@ runtimeManifest:
           inputs:
             LOG_LEVEL: debug
           annotations:
-            require-adobe-auth: false
+            require-adobe-auth: true
             final: true
     ranosysnotificationmanager:
       license: Apache-2.0
@@ -28,7 +28,7 @@ runtimeManifest:
           inputs:
             LOG_LEVEL: debug
           annotations:
-            require-adobe-auth: false
+            require-adobe-auth: true
             final: true
         createNotification:
           function: actions/createNotification/index.js
@@ -37,7 +37,7 @@ runtimeManifest:
           inputs:
             LOG_LEVEL: debug
           annotations:
-            require-adobe-auth: false
+            require-adobe-auth: true
             final: true
         updateNotification:
           function: actions/updateNotification/index.js
@@ -46,7 +46,7 @@ runtimeManifest:
           inputs:
             LOG_LEVEL: debug
           annotations:
-            require-adobe-auth: false
+            require-adobe-auth: true
             final: true
         deleteNotification:
           function: actions/deleteNotification/index.js
@@ -55,7 +55,7 @@ runtimeManifest:
           inputs:
             LOG_LEVEL: debug
           annotations:
-            require-adobe-auth: false
+            require-adobe-auth: true
             final: true
         deleteAllNotifications:
           function: actions/deleteAllNotifications/index.js
@@ -64,7 +64,7 @@ runtimeManifest:
           inputs:
             LOG_LEVEL: debug
           annotations:
-            require-adobe-auth: false
+            require-adobe-auth: true
             final: true
         allNotifications:
           function: actions/notifications/all/index.js
@@ -73,16 +73,16 @@ runtimeManifest:
           inputs:
             LOG_LEVEL: debug
           annotations:
-            require-adobe-auth: false
+            require-adobe-auth: true
             final: true
-        activeNotification:
+        activeNotifications:
           function: actions/notifications/active/index.js
           runtime: 'nodejs:20'
           web: 'yes'
           inputs:
             LOG_LEVEL: debug
           annotations:
-            require-adobe-auth: false
+            require-adobe-auth: true
             final: true
         liveNotifications:
           function: actions/notifications/live/index.js
@@ -91,5 +91,5 @@ runtimeManifest:
           inputs:
             LOG_LEVEL: debug
           annotations:
-            require-adobe-auth: false
+            require-adobe-auth: true
             final: true
