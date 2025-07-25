@@ -1,6 +1,8 @@
-/*
-Copyright 2025 Ranosys Technologies. All rights reserved.
-*/
+/**
+ * Get Registration Action
+ * @module actions/registration
+ * Copyright 2025 Ranosys Technologies. All rights reserved.
+ */
 
 async function main() {
     const extensionId = 'ranosysnotificationmanager'

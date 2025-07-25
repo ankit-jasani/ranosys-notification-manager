@@ -1,6 +1,6 @@
-/*
-Copyright 2025 Ranosys Technologies. All rights reserved.
-*/
+/**
+ * Copyright 2025 Ranosys Technologies. All rights reserved.
+ */
 
 const { DateTime } = require('luxon');
 

@@ -1,6 +1,6 @@
-/*
-Copyright 2025 Ranosys Technologies. All rights reserved.
-*/
+/**
+ * Copyright 2025 Ranosys Technologies. All rights reserved.
+ */
 
 export async function callAction(props, action, operation, body = {}) {
   const actions = require('./config.json')

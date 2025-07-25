@@ -1,6 +1,6 @@
-/*
-Copyright 2025 Ranosys Technologies. All rights reserved.
-*/
+/**
+ * Copyright 2025 Ranosys Technologies. All rights reserved.
+ */
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';

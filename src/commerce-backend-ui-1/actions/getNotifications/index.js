@@ -1,29 +1,40 @@
-/*
-Copyright 2025 Ranosys Technologies. All rights reserved.
-*/
+/**
+ * Get Notifications Action
+ * @module actions/getNotifications
+ * Copyright 2025 Ranosys Technologies. All rights reserved.
+ */
 
 const stateLib = require('@adobe/aio-lib-state');
 const { Core } = require('@adobe/aio-sdk');
-const { errorResponse, stringParameters, checkMissingRequestInputs } = require('../utils');
+const {
+  errorResponse,
+  stringParameters,
+  checkMissingRequestInputs
+} = require('../utils');
 
+/**
+ * Main entry point for the get Notifications action.
+ * @param {Object} params - The parameters passed by Adobe App Builder.
+ * @returns {Promise<Object>} HTTP response object.
+ */
 exports.main = async (params = {}) => {
 
-  const logger = Core.Logger('main', { level: params.LOG_LEVEL || 'info' });
+  const logger = Core.Logger('getNotifications', {
+    level: params.LOG_LEVEL || 'info'
+  });
 
   try {
 
     // 'info' is the default level if not set
-    logger.info('Calling the all notification action');
+    logger.info('Calling get notifications action');
 
     // log parameters, only if params.LOG_LEVEL === 'debug'
     logger.debug(stringParameters(params));
 
-    // check for missing request input parameters and headers
-    const requiredParams = [/* add required params */];
+    // validate headers if needed
     const requiredHeaders = ['Authorization'];
-    const errorMessage = checkMissingRequestInputs(params, requiredParams, requiredHeaders);
+    const errorMessage = checkMissingRequestInputs(params, [], requiredHeaders);
     if (errorMessage) {
-      // return and log client errors
       return errorResponse(400, errorMessage, logger);
     }
 
@@ -33,6 +44,7 @@ exports.main = async (params = {}) => {
     // Retrieve notifications from state storage
     const stored = await state.get('notifications');
     if (!stored?.value) {
+      logger.info('No notifications index found, returning empty list');
       return {
         statusCode: 200,
         headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
@@ -48,22 +60,16 @@ exports.main = async (params = {}) => {
     }
 
     // log the response status code
-    logger.info(`Successful request`);
+    logger.info(`Successfully retrieved notifications`);
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-store'
-      },
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
       body: JSON.stringify({ data: notifications })
     };
 
   } catch (error) {
-    // log any server errors
     logger.error(error);
-
-    // return with 500
     return errorResponse(500, 'server error', logger);
   }
 };
