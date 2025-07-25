@@ -208,8 +208,8 @@ export default function NotificationsManager(props) {
             setShowCustomInput(isCustom);
             setForm(f => ({
               ...f,
-              position: isCustom
-                ? f.customLabel.trim().toLowerCase().replace(/\s+/g, '-')
+              position: isCustom && f.customLabel
+                ? f.customLabel.trim().toLowerCase().replace(/\s+/g, '')
                 : k
             }));
           }}
