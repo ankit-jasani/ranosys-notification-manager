@@ -34,7 +34,8 @@ exports.main = async (params = {}) => {
 
     // Parse data
     const { data } = params;
-    const { id, updates } = data;
+    const id = params?.data?.id;
+    const updates = params?.data?.updates;
 
     // Validate inputs
     const requiredParams = ['data.id'];
