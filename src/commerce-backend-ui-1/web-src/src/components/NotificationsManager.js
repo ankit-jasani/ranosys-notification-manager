@@ -4,6 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { attach } from '@adobe/uix-guest';
 import {
   View, Flex, Heading, TextField, Button, TableView,
   TableHeader, Column, TableBody, Row, Cell, Picker, Item,
@@ -12,6 +13,7 @@ import {
 import { callAction } from '../utils';
 import { v4 as uuid } from 'uuid';
 import './NotificationsManager.css';
+import { extensionId } from './Constants';
 
 export default function NotificationsManager(props) {
   // UI states
@@ -19,6 +21,27 @@ export default function NotificationsManager(props) {
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
+
+  const [confirmDialog, setConfirmDialog] = useState({
+    open: false,
+    title: '',
+    message: '',
+    onConfirm: null
+  });
+
+  useEffect(() => {
+    const initialize = async () => {
+      if (!props.ims.token) {
+        const guestConnection = await attach({ id: extensionId });
+        props.ims.token = guestConnection?.sharedContext?.get('imsToken');
+        props.ims.org = guestConnection?.sharedContext?.get('imsOrgId');
+      }
+      await fetchNotifications();
+      setLoading(false);
+    };
+
+    initialize();
+  }, []);
 
   // Form state
   const [form, setForm] = useState({
@@ -35,6 +58,16 @@ export default function NotificationsManager(props) {
     setTimeout(() => setToast(null), 4000);
   };
 
+  // Show confirm dialog box
+  const showConfirm = (title, message, onConfirm) => {
+    setConfirmDialog({ open: true, title, message, onConfirm });
+  };
+
+  // Close confirm dialog box
+  const closeConfirm = () => {
+    setConfirmDialog({ ...confirmDialog, open: false });
+  };
+
   // Fetch all existing notifications
   const fetchNotifications = async () => {
     setLoading(true);
@@ -47,11 +80,6 @@ export default function NotificationsManager(props) {
       setLoading(false);
     }
   };
-
-  // Initial load
-  useEffect(() => {
-    fetchNotifications();
-  }, []);
 
   const utcToDatetimeLocal = (utcStr) => {
     const date = new Date(utcStr);
@@ -111,35 +139,36 @@ export default function NotificationsManager(props) {
   };
 
   // Delete a single notification
-  const deleteNotification = async (id) => {
-    if (!window.confirm('Delete this notification?')) return;
-    const params = id ? { data: { id } } : null;
-    setLoading(true);
-    try {
-      await callAction(props, 'ranosysnotificationmanager/deleteNotification', '', params);
-      showToast('success', 'Deleted');
-      await fetchNotifications();
-    } catch (e) {
-      showToast('error', e.message);
-    } finally {
-      setLoading(false);
-    }
+  const deleteNotification = (id) => {
+    showConfirm('Confirm Delete', 'Delete this notification?', async () => {
+      setLoading(true);
+      try {
+        const params = id ? { data: { id } } : null;
+        await callAction(props, 'ranosysnotificationmanager/deleteNotification', '', params);
+        showToast('success', 'Deleted');
+        await fetchNotifications();
+      } catch (e) {
+        showToast('error', e.message);
+      } finally {
+        setLoading(false);
+      }
+    });
   };
 
   // Delete all notifications
-  const deleteAllNotifications = async () => {
-    if (!window.confirm('Delete ALL notifications?')) return;
-
-    setLoading(true);
-    try {
-      await callAction(props, 'ranosysnotificationmanager/deleteAllNotifications');
-      showToast('success', 'All deleted');
-      await fetchNotifications();
-    } catch (e) {
-      showToast('error', e.message);
-    } finally {
-      setLoading(false);
-    }
+  const deleteAllNotifications = () => {
+    showConfirm('Delete All Notifications', 'Are you sure you want to delete ALL notifications?', async () => {
+      setLoading(true);
+      try {
+        await callAction(props, 'ranosysnotificationmanager/deleteAllNotifications');
+        showToast('success', 'All deleted');
+        await fetchNotifications();
+      } catch (e) {
+        showToast('error', e.message);
+      } finally {
+        setLoading(false);
+      }
+    });
   };
 
   // Load form with notification data for editing
@@ -209,7 +238,7 @@ export default function NotificationsManager(props) {
             setForm(f => ({
               ...f,
               position: isCustom && f.customLabel
-                ? f.customLabel.trim().toLowerCase().replace(/\s+/g, '')
+                ? f.customLabel.trim().toLowerCase().replace(/\s+/g, '-')
                 : k
             }));
           }}
@@ -299,6 +328,32 @@ export default function NotificationsManager(props) {
       {toast && (
         <div className={`nm-toast ${toast.type}`}>
           {toast.message}
+        </div>
+      )}
+
+      {/* Confirm Dialog Box */}
+      {confirmDialog.open && (
+        <div className="nm-confirm-dialog-overlay">
+          <div className="nm-confirm-dialog">
+            <Heading level={4}>{confirmDialog.title}</Heading>
+            <p>{confirmDialog.message}</p>
+            <Flex gap="size-150" marginTop="size-200">
+              <Button
+                variant="cta"
+                onPress={async () => {
+                  closeConfirm();
+                  if (typeof confirmDialog.onConfirm === 'function') {
+                    await confirmDialog.onConfirm();
+                  }
+                }}
+              >
+                Yes
+              </Button>
+              <Button variant="secondary" onPress={closeConfirm}>
+                Cancel
+              </Button>
+            </Flex>
+          </div>
         </div>
       )}
     </View>

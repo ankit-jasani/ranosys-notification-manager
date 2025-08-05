@@ -108,7 +108,7 @@ exports.main = async (params = {}) => {
     }
 
     // Add the new notification to the list
-    notifications.push(data);
+    notifications.push(params.data);
 
     // Persist the updated list back to the store
     await state.put('notifications', JSON.stringify(notifications), { ttl: stateLib.MAX_TTL });
