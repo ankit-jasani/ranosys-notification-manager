@@ -20,6 +20,7 @@ The Notification Manager is an extension of the Adobe Commerce Admin UI SDK that
 - The position query parameter is used to filter notifications based on their position.
 - The tz query parameter is used to filter notifications based on the provided timezone instead of the default UTC. Note that only the current time is converted to the specified timezone, and this converted time is then checked against the UTC-based start and end times of all notifications.
 - The tzaware and tz query parameters are used together to filter notifications based on the provided timezone instead of the default UTC. In this case, both the current time and the notification start and end times are converted to the specified timezone before comparison.
+- Currently, the application is designed to store all notification records using a single key-value pair, with the State Store supporting a maximum of 1 MB (1,048,576 bytes) per value. Based on the current structure, you can store approximately 5000 notifications, though the exact number depends on the length of each notification’s content. In the future, to support a larger volume or more complex data, the application may need to be enhanced to use multiple key-value pairs for improved scalability. [Reference:] (https://developer.adobe.com/app-builder/docs/guides/app_builder_guides/application-state#feature-matrix)
 
 ## Prerequisites
 

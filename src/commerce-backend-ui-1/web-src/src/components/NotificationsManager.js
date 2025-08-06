@@ -14,6 +14,7 @@ import { callAction } from '../utils';
 import { v4 as uuid } from 'uuid';
 import './NotificationsManager.css';
 import { extensionId } from './Constants';
+const { DateTime } = require('luxon');
 
 export default function NotificationsManager(props) {
   // UI states
@@ -173,11 +174,11 @@ export default function NotificationsManager(props) {
 
   // Load form with notification data for editing
   const editNotification = (item) => {
-    const isCustom = item.position !== 'header' && item.position !== 'footer';
+    const isCustom = item.position !== 'header' && item.position !== 'footer' && item.position !== '';
     setShowCustomInput(isCustom);
     setForm({
       ...item,
-      customLabel: isCustom ? item.position.replace(/-/g, ' ') : '',
+      customLabel: isCustom ? item.position : '',
       position: isCustom ? 'custom' : item.position,
       start: utcToDatetimeLocal(item.start),
       end: utcToDatetimeLocal(item.end)
@@ -286,8 +287,8 @@ export default function NotificationsManager(props) {
         <TableView aria-label="Notifications" overflowMode="wrap" density="compact" width="100%">
           <TableHeader>
             <Column width="40%">Content</Column>
-            <Column width="15%">Start</Column>
-            <Column width="15%">End</Column>
+            <Column width="15%">Start From (UTC)</Column>
+            <Column width="15%">End On (UTC)</Column>
             <Column width="10%">Position</Column>
             <Column width="20%">Action</Column>
           </TableHeader>
@@ -295,8 +296,8 @@ export default function NotificationsManager(props) {
             {(item) => (
               <Row key={item.id}>
                 <Cell>{item.content}</Cell>
-                <Cell>{item.start}</Cell>
-                <Cell>{item.end}</Cell>
+                <Cell>{DateTime.fromISO(item.start, { zone: 'utc' }).toFormat("dd/MM/yyyy, h:mm:ss a")}</Cell>
+                <Cell>{DateTime.fromISO(item.end, { zone: 'utc' }).toFormat("dd/MM/yyyy, h:mm:ss a")}</Cell>
                 <Cell>{item.position}</Cell>
                 <Cell>
                   <Flex gap="size-100" wrap>
