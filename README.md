@@ -8,10 +8,13 @@ The Notification Manager is an extension of the Adobe Commerce Admin UI SDK that
 
 ## Features
 
-- **Admin Panel Management**: Promotion notifications or any other type of temporary notification can be easily created, edited, deleted, and scheduled right from the Adobe Commerce Admin Panel and retrieved via API calls for storefront.
+- **Admin Panel Management**: Promotion notifications or any other type of notification can be easily created, edited, deleted, and scheduled right from the Adobe Commerce Admin Panel and retrieved via API calls for storefront.
 - **Flexible Scheduling**: Create and schedule multiple notifications with specific start and end dates and times.
 - **Separate Header & Footer Control**: Independently manage notifications sets for the header and the footer, ensuring targeted messaging in each area.
 - **Easy Management**: Intuitive Admin UI integration makes it simple to add, edit, enable, or disable notifications without writing any custom code.
+
+<img width="1828" height="814" alt="Screenshot-from-2025-08-05-19-28-47-08-06-2025_04_58_PM" src="https://github.com/user-attachments/assets/196019c6-cf7e-4e1f-826a-63150c451873" />
+<img width="1740" height="845" alt="Screenshot-from-2025-08-05-19-28-42-08-06-2025_04_58_PM" src="https://github.com/user-attachments/assets/46861c59-0325-4c22-a442-ba1e6bd56497" />
 
 ## Note
 
@@ -346,6 +349,3 @@ The Notification Manager is an extension of the Adobe Commerce Admin UI SDK that
 		        }
 		    ]
 		}
-
-<img width="1828" height="814" alt="Screenshot-from-2025-08-05-19-28-47-08-06-2025_04_58_PM" src="https://github.com/user-attachments/assets/196019c6-cf7e-4e1f-826a-63150c451873" />
-<img width="1740" height="845" alt="Screenshot-from-2025-08-05-19-28-42-08-06-2025_04_58_PM" src="https://github.com/user-attachments/assets/46861c59-0325-4c22-a442-ba1e6bd56497" />
