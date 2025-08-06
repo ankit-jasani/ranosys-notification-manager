@@ -346,3 +346,6 @@ The Notification Manager is an extension of the Adobe Commerce Admin UI SDK that
 		        }
 		    ]
 		}
+
+<img width="1828" height="814" alt="Screenshot-from-2025-08-05-19-28-47-08-06-2025_04_58_PM" src="https://github.com/user-attachments/assets/196019c6-cf7e-4e1f-826a-63150c451873" />
+<img width="1740" height="845" alt="Screenshot-from-2025-08-05-19-28-42-08-06-2025_04_58_PM" src="https://github.com/user-attachments/assets/46861c59-0325-4c22-a442-ba1e6bd56497" />
